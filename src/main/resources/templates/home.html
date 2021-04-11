@@ -3,16 +3,176 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Spring Security Tutorial</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/login.css}"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>City Info</title>
+  <link rel="icon" th:href="@{/resources/cloud-icon.png}">
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/small-business.css}" rel="stylesheet">
+
 </head>
 
 <body>
 
-<p1>Woozzle Wuzzle</p1>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" id="home-tab" href="#">CityInfo</a>
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" id="city1" aria-label="Search">
+      <button id="booton" type="button" class="btn btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"></path>
+            </svg>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" id="cinfo-tab" href="#covid_stats">Covid_Stats</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" id="bus-tab" href="#businesses">Businesses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" id="weather-tab" href="#weather">Weather</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" id="avoid-tab" href="#places_to_avoid">Places_To_Avoid</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" id="logout" th:href="@{/logout}">Log_Out</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+
+    <!-- Heading Row -->
+    <div id="home" class="row align-items-center my-5">
+      <h1 class="font-weight-heavy">Welcome!</h1>
+      <p>This page's purpose is to take a city provided by yourself in order to become a tool that will gather information regarding the given city's Covid-19 statistics, crime rates, places you should avoid, businesses, and weather. <br><br>Please enter a city inside the search bar above,<br>then click the search button!
+      <br><br>Please note that once you change tabs you might need to click the search button once more!</p>
+    </div>
+      
+      </div>
+      <div class="col-lg-7">
+        <div class="row justify-content-md-center" style="text-align: center;">
+          <span class="error-msg hidden" id="error-value-city1"></span>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+    <!-- Call to Action Well -->
+    <div class="container my-5 py-4">
+      <div class="row-lg-6">
+        <!--WEATHER TAB HERE-->
+        <div id="forecast" class="col-auto text-center d-none">
+             <h5 class="font-weight-heavy">5 Day Forecast. Updated Frequently</h5>
+             <h2><span id="city1-name"></span></h2>
+             <table class="table table-center font-weight-light" id="results-city1">
+               <tr>
+                  <td class="text-bold" id="city1-day1-name"></td>
+                  <td id="city1-day2-name"></td>
+                  <td id="city1-day3-name"></td>
+                  <td id="city1-day4-name"></td>
+                  <td id="city1-day5-name"></td>
+               </tr>
+               <tr>
+                  <td id="city1-day1-high"></td>
+                  <td id="city1-day2-high"></td>
+                  <td id="city1-day3-high"></td>
+                  <td id="city1-day4-high"></td>
+                  <td id="city1-day5-high"></td>
+               </tr>
+               <tr>
+                  <td id="city1-day1-low"></td>
+                  <td id="city1-day2-low"></td>
+                  <td id="city1-day3-low"></td>
+                  <td id="city1-day4-low"></td>
+                  <td id="city1-day5-low"></td>
+               </tr>
+               <tr>
+                  <td><img id="city1-day1-image"></td>
+                  <td><img id="city1-day2-image"></td>
+                  <td><img id="city1-day3-image"></td>
+                  <td><img id="city1-day4-image"></td>
+                  <td><img id="city1-day5-image"></td>
+               </tr>
+               
+                </table>
+        </div>
+        <!--BUSINESS/YELP TAB HERE-->
+        <div class="container d-none" id="yelp">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="results">
+    
+                    </div>
+                </div>
+             </div>
+        </div>
+        <!--COVID_STATS TAB HERE-->
+        <div class="container d-none" ID="covids">
+          <h1 class="text-center mt-5">World Covid 19 information</h1>
+          <br>
+          <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>New Cases</th>
+          <th>Total Cases</th>
+          <th>New Deaths</th>
+          <th>Total Deaths</th>
+          <th>New Recovery</th>
+          <th>Total Recovery</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr id="data">
+          </tr>
+        
+      </tbody>
+    </table>
+        </div>
+
+      </div>
+    <!-- Content Row -->
+        <div class="row text-center" style="height: 350px;">
+    
+            <div class="col-sm d-none"id="resun">
+            <p><b class="text-center font-weight-light" id="err"></b></p>
+            </div>
+    
+        </div>
+
+    </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; CEN4010_S21_Team17 2021<br>Thanks for visiting and stay safe!</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+  <script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+  <script th:src="@{/js/weather.js}"></script>
 
 </body>
+
 </html>

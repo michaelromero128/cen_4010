@@ -42,7 +42,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login?error=true")
-				.defaultSuccessUrl("/admin/home")
+				.defaultSuccessUrl("/home")
 				
 				.usernameParameter("user_name")
 				.passwordParameter("password")
@@ -50,19 +50,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/login").and().exceptionHandling().accessDeniedPage("/access-denied");
 	}
-//			.authorizeRequests()
-//				.antMatchers("/admin/**").hasRole("ADMIN")
-//				.antMatchers("/anonymous*").anonymous()
-//				.antMatchers("/login*").permitAll()
-//				.anyRequest().authenticated()
-//			.and()
-//			.formLogin()
-//				.loginPage("/login.html")
-//				.loginProcessingUrl("/perform_Login")
-//				.defaultSuccessUrl("/home.html",true)
-//				.failureUrl("/login.html?error=true")
-//				.failureHandler(authenticationFailureHandler())
-//				.and()
 	
 	
 	
@@ -75,15 +62,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		web.ignoring()
-			.antMatchers("/resources/**","/static/**", "/css/**","js/**", "/images");
+			.antMatchers("/resources/**","/static/**", "/css/**","/js/**", "/vendor/**");
 	}
 	
 	
-//	@Bean
-//	@Override
-//	public UserDetailsService userDetailsService() {
-//		UserDetails user = User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build();
-//		
-//		return new InMemoryUserDetailsManager(user);
-//	}
+
 }

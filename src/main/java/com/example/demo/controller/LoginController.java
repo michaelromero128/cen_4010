@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.regex.Pattern;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +41,15 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/registration", method =RequestMethod.POST)
-	
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView= new ModelAndView();
 		User userDTO = userService.findUserByUserName(user.getUserName());
 		if(userDTO != null) {
 			bindingResult.rejectValue("userName",  "error.user", "There is a already a suer registered with the user name provided");
+		}
+		
+		if(user.getUserName().contains("'") || user.getUserName().contains("<") || user.getUserName().contains(">")) {
+			bindingResult.rejectValue("userName", "error.user", "Illegal Character in the user name. Do not use >,<, or '");
 		}
 		if(bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
@@ -57,7 +62,7 @@ public class LoginController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
+	@RequestMapping(value="/home", method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
