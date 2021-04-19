@@ -163,6 +163,20 @@ function clickMe() {
     });      
 
   }
+  function testPost(){
+	    console.log("yelpcall");
+	    var CITY = "miami";
+	    var zeText = {"text":"wuzzle"}
+	    var myurl = "http://mockproject128.com/postComment/miami"
+	    $.ajax({
+	    	type: "POST",
+	    	url: myurl,
+	    	data: JSON.stringify(zeText),
+	       dataType: 'json',
+	       contentType: "application/json"
+	    });      
+
+	  }
 
 //************************************************ */
 //COVID_INFO FUNCTIONS
