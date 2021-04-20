@@ -179,7 +179,6 @@ function clickMe() {
 	  
 	  city1 = $("#city1").val().trim();
 	  var CITY = city1
-	  var zeText = {"text": $("#text").val().trim()}
 	  var myurl = "http://mockproject128.com/getComment/"+encodeURIComponent(CITY);
 	  //var myurl = "http://localhost/getComment/"+encodeURIComponent(CITY);
 	    $.ajax({
