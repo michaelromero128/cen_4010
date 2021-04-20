@@ -55,12 +55,12 @@ $( "#bus-tab" ).on( "click", function( ) {
 
   });
 
-$( "#avoid-tab" ).on( "click", function( ) {
-    console.log("avoid_unlock");
-    resetclick();
+$( "#com-tab" ).on( "click", function( ) {
+    console.log("com_unlock");
+    if(!aooseclick){resetclick();};
     aooseclick=true;
+    if(mooseclick){clickMe();}
     console.log(aooseclick);
-
   });
 
 function resetclick(){
@@ -80,13 +80,18 @@ function resetclick(){
         booseclick=false;
         $("#yelp").addClass("d-none",60);
     }
-    aooseclick=false;
+    if(aooseclick){
+        console.log("com_close");
+        aooseclick=false;
+        $("#comment").addClass("d-none",60);
+    }
 }
 
 function clickMe() {
-    console.log("peepeepoopoo");
+    console.log("clickMe");
     city1 = $("#city1").val().trim();
     console.log(city1);
+    getComments();
 
     if(!mooseclick){
         mooseclick=true;
@@ -110,7 +115,11 @@ function clickMe() {
         return;
     }
     
-    // printo();
+    if(aooseclick){
+        init();
+        $("#comment").removeClass("d-none",60);
+        return;
+    }
 
   }
 
@@ -163,6 +172,46 @@ function clickMe() {
     });      
 
   }
+  
+  function getComments(){
+	  $("#comments").remove();
+	  $("#comment").prepend('<div id = "comments"></div');
+	  
+	  city1 = $("#city1").val().trim();
+	  var CITY = city1
+	  var zeText = {"text": $("#text").val().trim()}
+	  var myurl = "http://mockproject128.com/getComment/"+encodeURIComponent(CITY);
+	  //var myurl = "http://localhost/getComment/"+encodeURIComponent(CITY);
+	    $.ajax({
+	       url: myurl,
+	       method: 'GET',
+	       dataType: 'json',
+	       success: function(totalresults){
+	           // Grab the results from the API JSON return
+	           data = totalresults;
+	           // If our results are greater than 0, continue
+	           if (data.length > 0){
+	               // Display a header on the page with the number of results
+	              
+	               // Itirate through the JSON array of 'businesses' which was returned by the API
+	               $.each(data, function(i, item) {
+	                   // Store each business's object in a variable
+	                   var id = item.id;
+	                   var zaText = item.text;
+	                   var zaUserName = item.userName
+	                   // Append our result into our page
+	                   $('#comments').append('<div>'+zaText+'<br>'+'- '+zaUserName+'</div>');
+	                   
+	             });
+	           } else {
+	               // If our results are 0; no businesses were returned by the JSON therefor we display on the page no results were found
+	               $('#comments').append('<h5>No comments yet. Make the first!</h5>');
+	           }
+	       }
+	    });      
+
+	  }
+  
   function testPost(){
 	    console.log("yelpcall");
 	    var CITY = "miami";
@@ -173,10 +222,30 @@ function clickMe() {
 	    	url: myurl,
 	    	data: JSON.stringify(zeText),
 	       dataType: 'json',
-	       contentType: "application/json"
+	       contentType: "application/json",
+	       success: function(){
+	    	   location.reload();
+	       }
 	    });      
+}
 
-	  }
+function realPost(){
+	  city1 = $("#city1").val().trim();
+	  var CITY = city1
+	  var zeText = {"text": $("#text").val().trim()}
+	  var myurl = "http://mockproject128.com/postComment/"+encodeURIComponent(CITY);
+	  //var myurl = "http://localhost/postComment/"+encodeURIComponent(CITY);
+	  $.ajax({
+	    	type: "POST",
+	    	url: myurl,
+	    	data: JSON.stringify(zeText),
+	       dataType: 'json',
+	       contentType: "application/json",
+	    	   success: function(){
+		    	   location.reload();
+		       } 
+	    }); 
+}
 
 //************************************************ */
 //COVID_INFO FUNCTIONS

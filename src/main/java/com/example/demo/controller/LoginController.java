@@ -24,10 +24,10 @@ public class LoginController {
 	private UserService userService;
 	
 	
-	@RequestMapping(value= {"/","/login"}, method =RequestMethod.GET)
+	@RequestMapping(value= {"/", "/login", "/index"}, method =RequestMethod.GET)
 	public ModelAndView login() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("login");
+		modelAndView.setViewName("index");
 		return modelAndView;
 	}
 	
@@ -73,6 +73,8 @@ public class LoginController {
 	    modelAndView.setViewName("home");
 	    return modelAndView;
 	}
+	
+	
 	
 	
 	

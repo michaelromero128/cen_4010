@@ -37,7 +37,7 @@ public class EndpointController {
 		
 		return cityService.getCommentsDTOFromCity(cityName);
 	}
-	@CrossOrigin
+	@CrossOrigin(origins = "localhost")
 	@PostMapping(path = "/postComment/{cityName}")
 	public String postComment(@PathVariable String cityName ,@RequestBody Text text) {
 		System.out.println(cityName);
