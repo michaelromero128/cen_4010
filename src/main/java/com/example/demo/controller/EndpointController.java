@@ -69,6 +69,10 @@ public class EndpointController {
 		testScores.add(99);
 		testScores.add(999);
 		results.setUserScores(testScores);
+		ArrayList<String> testMatches = new ArrayList<>();
+		testMatches.add("TestMatchOne");
+		testMatches.add("TestMatchTwo");
+		results.setMatches(testMatches);
 
 		model.addAttribute("results", results);
 		return "resultsthyme";

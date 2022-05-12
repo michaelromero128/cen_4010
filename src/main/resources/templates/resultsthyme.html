@@ -43,7 +43,9 @@
             <h2>
                 You are similar to:
             </h2>
-
+            <div th:each="match: ${results.matches}" >
+                <p th:text="${match}" />
+            </div>
 
             
         </div>

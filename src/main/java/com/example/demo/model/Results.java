@@ -5,6 +5,8 @@ public class Results {
 	private String username;
     private ArrayList<Integer> userScores;
 
+    private ArrayList<String>> matches;
+
     public String getUsername() {
         return username;
     }
@@ -17,6 +19,14 @@ public class Results {
     }
     public void setUserScores(ArrayList<Integer> userScores) {
         this.userScores = userScores;
+    }
+
+    public ArrayList<String>> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(ArrayList<String> matches) {
+        this.matches = matches;
     }
 
 }
