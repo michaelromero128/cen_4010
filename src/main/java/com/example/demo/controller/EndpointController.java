@@ -53,4 +53,23 @@ public class EndpointController {
 		return "Okay";
 	}
 
+	//Post mapping occurs when the form is submitted.  Return your results.
+	@PostMapping("/")
+	public String getResultsSubmit(@ModelAttribute GetMyInfo userWantingInfo, Model model) {
+		//Do some logic here to get the results.
+		Results results = new Results();
+		results.setUsername("test");
+		ArrayList<Integer> testScores = new ArrayList<>();
+		testScores.add(99);
+		testScores.add(999);
+		results.setUserScores(testScores);
+
+
+
+
+		model.addAttribute("results", results)
+		return "resultsthyme"
+	}
+
+
 }
