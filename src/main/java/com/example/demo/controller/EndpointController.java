@@ -53,9 +53,15 @@ public class EndpointController {
 		return "Okay";
 	}
 
+	@GetMapping("/results")
+	public String infoForm(Model model) {
+		model.addAttribute("getmyinfo", new GetMyInfo());
+		return "index";
+	}
+
 	//Post mapping occurs when the form is submitted.  Return your results.
-	@PostMapping("/")
-	public String getResultsSubmit(@ModelAttribute GetMyInfo userWantingInfo, Model model) {
+	@PostMapping("/results")
+	public String getResultsSubmit(@ModelAttribute GetMyInfo getmyinfo, Model model) {
 		//Do some logic here to get the results.
 		Results results = new Results();
 		results.setUsername("test");
@@ -64,11 +70,8 @@ public class EndpointController {
 		testScores.add(999);
 		results.setUserScores(testScores);
 
-
-
-
-		model.addAttribute("results", results)
-		return "resultsthyme"
+		model.addAttribute("results", results);
+		return "resultsthyme";
 	}
 
 
