@@ -33,8 +33,8 @@
             </p>
 
             <div>
-                <h3 th:text="'Your Name: ' + ${results.username}" />
-                <div th:each="userScore: ${results.userScores}">
+                <h3 th:text="'Your Name: ' + ${ username}" />
+                <div th:each="userScore: ${userScores}">
                     <p th:text="'CATEGORY HERE: ' + ${userScore}" />
                 </div>
 
@@ -43,6 +43,11 @@
             <h2>
                 You are similar to:
             </h2>
+            
+            <div th:each="match: ${matches}">
+                <h3 th:text="'Name: ' + ${match.name}" />
+                <p th:text="'Scores: ' + ${match.scores}" />
+            </div>
 
 
             
